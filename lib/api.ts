@@ -53,10 +53,6 @@ export async function sendFeedback(messageId: string, rating: Rating, comment: s
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message_id: messageId, rating, comment: comment.trim() || null }),
   });
-  if (response.status === 401) {
-    window.location.href = "/login";
-    throw new Error("Not signed in.");
-  }
   if (!response.ok) throw new Error(`Request failed (${response.status}).`);
   return response.json() as Promise<{ ok: boolean }>;
 }
